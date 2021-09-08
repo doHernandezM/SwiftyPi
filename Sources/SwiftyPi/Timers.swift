@@ -16,14 +16,14 @@ public class SwiftyPiTimer {
     var timer: DispatchSourceTimer?
     var counter: CounterTuple = (nil,0)
     
-    init(timeInterval: TimeInterval, loops: Int?) {
+    public init(timeInterval: TimeInterval, loops: Int?) {
         if loops != nil {
             counter = (maxLoops:loops,currentLoop:0)
         }
         self.timeInterval = timeInterval
     }
     
-    var handler: CompletionHandler?
+    public var handler: CompletionHandler?
 
     
     func interval() {
@@ -42,7 +42,7 @@ public class SwiftyPiTimer {
         stop(force: false)
     }
 
-    func stop(force: Bool) {
+    public func stop(force: Bool) {
         if force == true {counter.currentLoop = counter.maxLoops!}
         
         if (counter.maxLoops == nil) {
