@@ -9,7 +9,7 @@ import Foundation
 import SwiftyGPIO
 
 //MARK:SwiftyPi
-enum SwiftyPiType: String {
+public enum SwiftyPiType: String {
     case statusLED, button, relay, light, pump
 }
 
@@ -17,7 +17,7 @@ public enum SwiftyPiMode: String {
     case off, low, medium, high//high is equal to on
 }
 
-class SwiftyPiDevice {
+public class SwiftyPiDevice {
     var pin: GPIO
     var lastPinValue: Int = 0
     var type: SwiftyPiType
@@ -25,14 +25,14 @@ class SwiftyPiDevice {
     
     var handler: CompletionHandler? = nil
     
-    init(thePin: GPIO, theType: SwiftyPiType) {
+    public init(thePin: GPIO, theType: SwiftyPiType) {
         self.pin = thePin
         self.type = theType
         
         self.setup()
     }
     
-    init(thePin: String, theType: SwiftyPiType) {
+    public init(thePin: String, theType: SwiftyPiType) {
         self.pin = SwiftyGPIO.GPIOs(for:.RaspberryPi3)[GPIOName(rawValue: thePin)!]!
         self.type = theType
         
@@ -111,7 +111,7 @@ class SwiftyPiDevice {
     
     
     
-    var bool: Bool {
+    public var bool: Bool {
         get {
             return (self.value == 1) ? true : false
         }
@@ -120,7 +120,7 @@ class SwiftyPiDevice {
         }
     }
     
-    var int: Int {
+    public var int: Int {
         get {
             return self.value
         }
@@ -129,7 +129,7 @@ class SwiftyPiDevice {
         }
     }
     
-    var mode: SwiftyPiMode {
+    public var mode: SwiftyPiMode {
         get {
             return bool ? .high : .off
         }
