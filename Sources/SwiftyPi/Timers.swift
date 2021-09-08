@@ -11,7 +11,7 @@ import Dispatch
 public typealias CompletionHandler = () -> Void
 public typealias CounterTuple = (maxLoops:Int?,currentLoop:Int)
 
-class SwiftyPiTimer {
+public class SwiftyPiTimer {
     private let timeInterval: TimeInterval
     var timer: DispatchSourceTimer?
     var counter: CounterTuple = (nil,0)
