@@ -36,7 +36,7 @@ public class SwiftyPiTimer {
         timer?.resume()
     }
     
-    func action() {
+    public func action() {
         counter.currentLoop += 1
         handler?()
         stop(force: false)

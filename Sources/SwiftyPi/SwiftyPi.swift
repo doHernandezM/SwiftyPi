@@ -21,7 +21,7 @@ public class SwiftyPiDevice {
     var pin: GPIO
     var lastPinValue: Int = 0
     var type: SwiftyPiType
-    var timer: SwiftyPiTimer? = nil
+    public var timer: SwiftyPiTimer? = nil
     
     var handler: CompletionHandler? = nil
     
