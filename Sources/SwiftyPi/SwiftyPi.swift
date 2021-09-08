@@ -74,14 +74,14 @@ public class SwiftyPiDevice {
         return
         #else
         
-        gpio.value = 0
+        gpio!.value = 0
         
         switch type {
         case .statusLED:
-            gpio.direction = .OUT
+            gpio!.direction = .OUT
         case .button:
-            gpio.direction = .IN
-            gpio.pull = .down
+            gpio!.direction = .IN
+            gpio!.pull = .down
             
             timer = SwiftyPiTimer(timeInterval: 1.0, loops: 5)
             timer?.handler = { [self] in
@@ -91,14 +91,16 @@ public class SwiftyPiDevice {
                 }
             }
         case .relay:
-            gpio.direction = .OUT
+            gpio!.direction = .OUT
         case .light:
-            gpio.direction = .OUT
+            gpio!.direction = .OUT
         case .pump:
-            gpio.direction = .OUT
+            gpio!.direction = .OUT
+        default:
+            break
         }
         
-        gpio.onChange{_ in
+        gpio?.onChange{_ in
             self.delegate?.valueChanged()
         }
         #endif
@@ -118,13 +120,13 @@ public class SwiftyPiDevice {
             #else
             
             if (type == .relay) {
-                return self.gpio.value
+                return self.gpio!.value
             } else {
-                return (self.gpio.value == 0) ? 1 : 0
+                return (self.gpio!.value == 0) ? 1 : 0
             }
             
             
-            return self.gpio.value
+            return self.gpio!.value
             #endif
         }
         set(newValue){
@@ -133,11 +135,11 @@ public class SwiftyPiDevice {
             return
             #else
             
-            lastPinValue = self.gpio.value
+            lastPinValue = self.gpio!.value
             if (type == .relay) {
-                self.gpio.value = newValue
+                self.gpio!.value = newValue
             } else {
-                self.gpio.value = (newValue == 0) ? 1 : 0
+                self.gpio!.value = (newValue == 0) ? 1 : 0
             }
             self.delegate?.didSet(value: newValue)
             #endif
