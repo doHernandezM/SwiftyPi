@@ -32,7 +32,7 @@ public class SwiftyPiDevice {
     
     var delegate: SwiftyPiDeviceDelegate? = nil
     
-    var handler: CompletionHandler? = {print("No completion handler defined")}
+    var handler: CompletionHandler? = nil //{print("No completion handler defined")}
     
     public init(i2cNumber: Int, theType: SwiftyPiType) {
         let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
