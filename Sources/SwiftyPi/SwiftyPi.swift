@@ -10,63 +10,96 @@ import SwiftyGPIO
 
 //MARK:SwiftyPi
 public enum SwiftyPiType: String {
-    case statusLED, button, relay, light, pump
+    case statusLED, button, relay, light, pump, motor, stepper , serial, lcd, i2c
 }
 
 public enum SwiftyPiMode: String {
     case off, low, medium, high//high is equal to on
 }
 
+//Change board type here. Currently supports all board from SwiftyGPIO
+fileprivate let board: SupportedBoard = . RaspberryPi3
+
 public class SwiftyPiDevice {
-    var pin: GPIO
+    var gpio: GPIO? = nil
+    var pwm: PWMOutput? = nil
+    var uart: UARTInterface? = nil
+    var i2c: I2CInterface? = nil
+    
     var lastPinValue: Int = 0
     var type: SwiftyPiType
     public var timer: SwiftyPiTimer? = nil
     
-    var handler: CompletionHandler? = nil
+    var delegate: SwiftyPiDeviceDelegate? = nil
     
-    public init(thePin: GPIO, theType: SwiftyPiType) {
-        self.pin = thePin
+    var handler: CompletionHandler? = {print("No completion handler defined")}
+    
+    public init(i2cNumber: Int, theType: SwiftyPiType) {
+        let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
+         i2c = i2cs[i2cNumber]
+
         self.type = theType
         
-        self.setup()
+        self.setupGPIO()
     }
     
-    public init(thePin: String, theType: SwiftyPiType) {
-        self.pin = SwiftyGPIO.GPIOs(for:.RaspberryPi3)[GPIOName(rawValue: thePin)!]!
+    public init(uartNumber: Int, theType: SwiftyPiType) {
+        let uarts = SwiftyGPIO.UARTs(for:board)!
+        uart = uarts[uartNumber]
+        
         self.type = theType
         
-        self.setup()
+        self.setupGPIO()
     }
     
-    func setup() {
+    public init(pwmChannel: Int, pwnPinName: String, theType: SwiftyPiType) {
+            let pwms = SwiftyGPIO.hardwarePWMs(for:board)!
+            pwm = pwms[pwmChannel]?[GPIOName(rawValue: pwnPinName)!]
+            
+            self.type = theType
+            
+            self.setupGPIO()
+        }
+        
+    public init(gpioPinName: String, theType: SwiftyPiType) {
+        self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName(rawValue: gpioPinName)!]!
+        self.type = theType
+        
+        self.setupGPIO()
+    }
+    
+    func setupGPIO() {
         #if os(OSX) || os(iOS)
         print("Apple Platform, no GPIO: setup")
         return
         #else
         
-        pin.value = 0
+        gpio.value = 0
         
         switch type {
         case .statusLED:
-            pin.direction = .OUT
+            gpio.direction = .OUT
         case .button:
-            pin.direction = .IN
-            pin.pull = .down
+            gpio.direction = .IN
+            gpio.pull = .down
             
             timer = SwiftyPiTimer(timeInterval: 1.0, loops: 5)
             timer?.handler = { [self] in
                 if self.handler != nil {
                     self.handler!()
-//                    print("Type:\(self.type), Pin:\(self.pin.name)")
+                    //                    print("Type:\(self.type), Pin:\(self.pin.name)")
                 }
             }
         case .relay:
-            pin.direction = .OUT
+            gpio.direction = .OUT
         case .light:
-            pin.direction = .OUT
+            gpio.direction = .OUT
         case .pump:
-            pin.direction = .OUT
+            gpio.direction = .OUT
+        }
+        
+        gpio.onChange{_ in
+            self.delegate?.valueChanged()
         }
         #endif
         
@@ -74,6 +107,7 @@ public class SwiftyPiDevice {
     
     public func action() {
         self.handler?()
+        self.delegate?.actionHappened()
     }
     
     private var value: Int {
@@ -84,13 +118,13 @@ public class SwiftyPiDevice {
             #else
             
             if (type == .relay) {
-                return self.pin.value
+                return self.gpio.value
             } else {
-                return (self.pin.value == 0) ? 1 : 0
+                return (self.gpio.value == 0) ? 1 : 0
             }
             
             
-            return self.pin.value
+            return self.gpio.value
             #endif
         }
         set(newValue){
@@ -99,12 +133,13 @@ public class SwiftyPiDevice {
             return
             #else
             
-            lastPinValue = self.pin.value
+            lastPinValue = self.gpio.value
             if (type == .relay) {
-                self.pin.value = newValue
+                self.gpio.value = newValue
             } else {
-                self.pin.value = (newValue == 0) ? 1 : 0
+                self.gpio.value = (newValue == 0) ? 1 : 0
             }
+            self.delegate?.didSet(value: newValue)
             #endif
         }
     }
@@ -137,4 +172,10 @@ public class SwiftyPiDevice {
             self.value = (newValue == .high) ? 1 : 0
         }
     }
+}
+
+protocol SwiftyPiDeviceDelegate {
+    func valueChanged()
+    func didSet(value: Int)
+    func actionHappened()
 }
