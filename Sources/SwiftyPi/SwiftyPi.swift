@@ -148,7 +148,7 @@ public class SwiftyPiDevice {
             } else {
                 self.gpio!.value = (newValue == 0) ? 1 : 0
             }
-            self.delegate?.didSet(value: newValue)
+//            self.delegate?.didSet(value: newValue)
             #endif
         }
     }
