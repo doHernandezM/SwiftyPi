@@ -90,9 +90,9 @@ public class SwiftyPiDevice {
             
             timer = SwiftyPiTimer(timeInterval: 1.0, loops: 5)
             timer?.handler = { [self] in
-                if self.handler != nil {
-                    self.handler!()
-                    print("Type:\(self.type), Pin:\(self.gpio?.name)")
+                if handler != nil {
+                    handler!()
+                    print("Type:\(self.type), Pin:\(String(describing: self.gpio?.name))")
                 }
             }
         case .relay:

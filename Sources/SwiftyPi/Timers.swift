@@ -30,8 +30,8 @@ public class SwiftyPiTimer {
         let queue = DispatchQueue(label: "net.doHernandez.SwiftyPi.timer")
         timer = DispatchSource.makeTimerSource(queue: queue)
         timer?.schedule(deadline: .now() + timeInterval, repeating: timeInterval, leeway: .seconds(0))
-        timer?.setEventHandler { [weak self] in
-            self?.action()
+        timer?.setEventHandler { [self] in
+            self.action()
         }
         timer?.resume()
     }
