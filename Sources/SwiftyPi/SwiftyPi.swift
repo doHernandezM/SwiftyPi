@@ -25,12 +25,12 @@ public enum SwiftyPiMode: String {
 fileprivate let board: SupportedBoard = . RaspberryPi3
 
 public struct SwiftyPiDeviceState: Codable {
-    var name: String = ""
-    var pin: Int = 4
-    var value: Int = 0
-    var lastPinValue: Int = 0
-    var type: SwiftyPiType.RawValue = SwiftyPiType.statusLED.rawValue
-    var deviceProtocol: SwiftyPiProtocol.RawValue = SwiftyPiProtocol.GPIO.rawValue
+    public var name: String = ""
+    public var pin: Int = 4
+    public var value: Int = 0
+    public var lastPinValue: Int = 0
+    public var type: SwiftyPiType.RawValue = SwiftyPiType.statusLED.rawValue
+    public var deviceProtocol: SwiftyPiProtocol.RawValue = SwiftyPiProtocol.GPIO.rawValue
     
     public init() {
         
