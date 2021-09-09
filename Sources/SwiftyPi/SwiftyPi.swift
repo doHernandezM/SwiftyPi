@@ -33,11 +33,10 @@ public class SwiftyPiDevice {
     
     var lastPinValue: Int = 0
     var type: SwiftyPiType
+    
     public var timer: SwiftyPiTimer? = nil
     
-//    var delegate: SwiftyPiDeviceDelegate? = nil
-    
-    var handler: CompletionHandler? = nil //{print("No completion handler defined")}
+    public var handler: CompletionHandler? = nil
     
     public init(i2cNumber: Int, theType: SwiftyPiType) {
         let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
@@ -90,9 +89,8 @@ public class SwiftyPiDevice {
             
             timer = SwiftyPiTimer(timeInterval: 1.0, loops: 5)
             timer?.handler = { [self] in
-                if handler != nil {
-                    handler!()
-                    print("Type:\(self.type), Pin:\(String(describing: self.gpio?.name))")
+                if self.handler != nil {
+                    self.handler!()
                 }
             }
         case .relay:
@@ -183,8 +181,8 @@ public class SwiftyPiDevice {
     }
 }
 
-protocol SwiftyPiDeviceDelegate {
-    func valueChanged()
-    func didSet(value: Int)
-    func actionHappened()
-}
+//protocol SwiftyPiDeviceDelegate {
+//    func valueChanged()
+//    func didSet(value: Int)
+//    func actionHappened()
+//}

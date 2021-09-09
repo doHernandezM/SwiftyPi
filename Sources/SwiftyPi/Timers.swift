@@ -25,9 +25,8 @@ public class SwiftyPiTimer {
     
     public var handler: CompletionHandler?
 
-    
     public func interval() {
-        let queue = DispatchQueue(label: "net.doHernandez.SwiftyPi.timer")
+        let queue = DispatchQueue(label:"net.doHernandez.SwiftyPi.timer")
         timer = DispatchSource.makeTimerSource(queue: queue)
         timer?.schedule(deadline: .now() + timeInterval, repeating: timeInterval, leeway: .seconds(0))
         timer?.setEventHandler { [self] in
