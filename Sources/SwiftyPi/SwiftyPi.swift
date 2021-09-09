@@ -31,6 +31,10 @@ public struct SwiftyPiDeviceState: Codable {
     var lastPinValue: Int = 0
     var type: SwiftyPiType.RawValue = SwiftyPiType.statusLED.rawValue
     var deviceProtocol: SwiftyPiProtocol.RawValue = SwiftyPiProtocol.GPIO.rawValue
+    
+    public init() {
+        
+    }
 }
 
 public class SwiftyPiDevice {
