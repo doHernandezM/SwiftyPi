@@ -105,16 +105,16 @@ public class SwiftyPiDevice {
             break
         }
         
-        gpio?.onChange{_ in
-            self.delegate?.valueChanged()
-        }
+//        gpio?.onChange{_ in
+//            self.delegate?.valueChanged()
+//        }
         #endif
         
     }
     
     public func action() {
         self.handler?()
-        self.delegate?.actionHappened()
+//        self.delegate?.actionHappened()
     }
     
     private var value: Int {
