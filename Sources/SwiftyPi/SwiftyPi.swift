@@ -10,7 +10,11 @@ import SwiftyGPIO
 
 //MARK:SwiftyPi
 public enum SwiftyPiType: String {
-    case statusLED, button, relay, light, pump, motor, stepper , serial, lcd, i2c
+    case statusLED, button, relay, light, pump, motor, stepper
+}
+
+public enum SwiftyPiProtocol: String {
+    case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
 }
 
 public enum SwiftyPiMode: String {
@@ -25,6 +29,7 @@ public class SwiftyPiDevice {
     var pwm: PWMOutput? = nil
     var uart: UARTInterface? = nil
     var i2c: I2CInterface? = nil
+    var deviceProtocol: SwiftyPiProtocol = .GPIO
     
     var lastPinValue: Int = 0
     var type: SwiftyPiType
@@ -36,11 +41,10 @@ public class SwiftyPiDevice {
     
     public init(i2cNumber: Int, theType: SwiftyPiType) {
         let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
-         i2c = i2cs[i2cNumber]
-
-        self.type = theType
+        i2c = i2cs[i2cNumber]
         
-        self.setupGPIO()
+        self.type = theType
+        self.deviceProtocol = .I2C
     }
     
     public init(uartNumber: Int, theType: SwiftyPiType) {
@@ -48,22 +52,23 @@ public class SwiftyPiDevice {
         uart = uarts[uartNumber]
         
         self.type = theType
-        
-        self.setupGPIO()
+        self.deviceProtocol = .UART
     }
     
     public init(pwmChannel: Int, pwnPinName: String, theType: SwiftyPiType) {
-            let pwms = SwiftyGPIO.hardwarePWMs(for:board)!
-            pwm = pwms[pwmChannel]?[GPIOName(rawValue: pwnPinName)!]
-            
-            self.type = theType
-            
-            self.setupGPIO()
-        }
+        let pwms = SwiftyGPIO.hardwarePWMs(for:board)!
+        pwm = pwms[pwmChannel]?[GPIOName(rawValue: pwnPinName)!]
         
+        self.type = theType
+        self.deviceProtocol = .PWM
+        
+    }
+    
     public init(gpioPinName: String, theType: SwiftyPiType) {
         self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName(rawValue: gpioPinName)!]!
+        
         self.type = theType
+        self.deviceProtocol = .GPIO
         
         self.setupGPIO()
     }
@@ -87,7 +92,7 @@ public class SwiftyPiDevice {
             timer?.handler = { [self] in
                 if self.handler != nil {
                     self.handler!()
-                    //                    print("Type:\(self.type), Pin:\(self.pin.name)")
+                    print("Type:\(self.type), Pin:\(self.pin.name)")
                 }
             }
         case .relay:
