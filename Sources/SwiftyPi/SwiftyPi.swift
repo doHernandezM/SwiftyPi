@@ -24,52 +24,50 @@ public enum SwiftyPiMode: String {
 //Change board type here. Currently supports all board from SwiftyGPIO
 fileprivate let board: SupportedBoard = . RaspberryPi3
 
+public class SwiftyPiDeviceState: Codable {
+    var name: String = ""
+    var pin: Int = 4
+    var value: Int = 0
+    var lastPinValue: Int = 0
+    var type: SwiftyPiType.RawValue = SwiftyPiType.statusLED.rawValue
+    var deviceProtocol: SwiftyPiProtocol.RawValue = SwiftyPiProtocol.GPIO.rawValue
+}
+
 public class SwiftyPiDevice {
+    var state = SwiftyPiDeviceState()
+    
     var gpio: GPIO? = nil
     var pwm: PWMOutput? = nil
     var uart: UARTInterface? = nil
     var i2c: I2CInterface? = nil
-    var deviceProtocol: SwiftyPiProtocol = .GPIO
     
     var lastPinValue: Int = 0
-    var type: SwiftyPiType
     
     public var timer: SwiftyPiTimer? = nil
     
     public var handler: CompletionHandler? = nil
     
-    public init(i2cNumber: Int, theType: SwiftyPiType) {
-        let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
-        i2c = i2cs[i2cNumber]
+    //Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
+    public init(state:SwiftyPiDeviceState, device:Int) {
+        self.state = state
         
-        self.type = theType
-        self.deviceProtocol = .I2C
-    }
-    
-    public init(uartNumber: Int, theType: SwiftyPiType) {
-        let uarts = SwiftyGPIO.UARTs(for:board)!
-        uart = uarts[uartNumber]
+        switch self.state.deviceProtocol {
+        case SwiftyPiProtocol.GPIO.rawValue:
+            self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:self.state.pin)!]!
+            self.setupGPIO()
+        case SwiftyPiProtocol.PWM.rawValue:
+            let pwms = SwiftyGPIO.hardwarePWMs(for:board)!
+            pwm = pwms[device]?[GPIOName.name(pin:self.state.pin)!]
+        case SwiftyPiProtocol.UART.rawValue:
+            let uarts = SwiftyGPIO.UARTs(for:board)!
+            uart = uarts[device]
+        case SwiftyPiProtocol.I2C.rawValue:
+            let i2cs = SwiftyGPIO.hardwareI2Cs(for:board)!
+            i2c = i2cs[device]
+        default:
+            break
+        }
         
-        self.type = theType
-        self.deviceProtocol = .UART
-    }
-    
-    public init(pwmChannel: Int, pwnPinName: String, theType: SwiftyPiType) {
-        let pwms = SwiftyGPIO.hardwarePWMs(for:board)!
-        pwm = pwms[pwmChannel]?[GPIOName(rawValue: pwnPinName)!]
-        
-        self.type = theType
-        self.deviceProtocol = .PWM
-        
-    }
-    
-    public init(gpioPinName: String, theType: SwiftyPiType) {
-        self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName(rawValue: gpioPinName)!]!
-        
-        self.type = theType
-        self.deviceProtocol = .GPIO
-        
-        self.setupGPIO()
     }
     
     func setupGPIO() {
@@ -103,7 +101,7 @@ public class SwiftyPiDevice {
             break
         }
         
-
+        
         #endif
         
     }
@@ -111,7 +109,6 @@ public class SwiftyPiDevice {
     public func action() {
         self.handler?()
         print("Device Handler called")
-//        self.delegate?.actionHappened()
     }
     
     private var value: Int {
@@ -143,7 +140,7 @@ public class SwiftyPiDevice {
             } else {
                 self.gpio!.value = (newValue == 0) ? 1 : 0
             }
-//            self.delegate?.didSet(value: newValue)
+            //            self.delegate?.didSet(value: newValue)
             #endif
         }
     }
@@ -175,6 +172,12 @@ public class SwiftyPiDevice {
         set(newValue){
             self.value = (newValue == .high) ? 1 : 0
         }
+    }
+}
+
+extension GPIOName {
+    static func name(pin:Int) -> GPIOName? {
+        return GPIOName(rawValue: "P" + String(pin))
     }
 }
 
