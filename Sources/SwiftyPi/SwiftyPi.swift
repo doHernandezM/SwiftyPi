@@ -103,11 +103,11 @@ public class SwiftyPiDevice {
             break
         }
         
-//        gpio?.onChange{ [self]_ in
-//            gpio!.clearListeners()
-//
+        gpio!.onChange{ [self]_ in
+            gpio!.clearListeners()
+print("gpio change")
 //            self.delegate?.valueChanged()
-//        }
+        }
         #endif
         
     }

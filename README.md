@@ -20,7 +20,7 @@ public typealias CompletionHandler = () -> Void
 ```swift
 public var handler: CompletionHandler? = nil
 ```
-* To set a device's state, or pin value, use:
+* To set or get a device's state, or pin value, use:
 ```swift
 public var bool: Bool
 public var int: Int
