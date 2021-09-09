@@ -24,7 +24,7 @@ public enum SwiftyPiMode: String {
 //Change board type here. Currently supports all board from SwiftyGPIO
 fileprivate let board: SupportedBoard = . RaspberryPi3
 
-public class SwiftyPiDeviceState: Codable {
+public struct SwiftyPiDeviceState: Codable {
     var name: String = ""
     var pin: Int = 4
     var value: Int = 0
