@@ -35,7 +35,7 @@ public class SwiftyPiDevice {
     var type: SwiftyPiType
     public var timer: SwiftyPiTimer? = nil
     
-    var delegate: SwiftyPiDeviceDelegate? = nil
+//    var delegate: SwiftyPiDeviceDelegate? = nil
     
     var handler: CompletionHandler? = nil //{print("No completion handler defined")}
     
@@ -116,7 +116,7 @@ public class SwiftyPiDevice {
     
     public func action() {
         self.handler?()
-        self.delegate?.actionHappened()
+//        self.delegate?.actionHappened()
     }
     
     private var value: Int {
