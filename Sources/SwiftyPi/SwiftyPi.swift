@@ -82,10 +82,10 @@ public class SwiftyPiDevice {
         
         gpio!.value = 0
         
-        switch type {
-        case .statusLED:
+        switch self.state.type {
+        case SwiftyPiType.statusLED.rawValue:
             gpio!.direction = .OUT
-        case .button:
+        case SwiftyPiType.button.rawValue:
             gpio!.direction = .IN
             gpio!.pull = .down
             
@@ -95,11 +95,11 @@ public class SwiftyPiDevice {
                     self.handler!()
                 }
             }
-        case .relay:
+        case SwiftyPiType.relay.rawValue:
             gpio!.direction = .OUT
-        case .light:
+        case SwiftyPiType.light.rawValue:
             gpio!.direction = .OUT
-        case .pump:
+        case SwiftyPiType.pump.rawValue:
             gpio!.direction = .OUT
         default:
             break
@@ -122,7 +122,7 @@ public class SwiftyPiDevice {
             return 0
             #else
             
-            if (type == .relay) {
+            if (self.state.type == SwiftyPiType.relay.rawValue) {
                 return self.gpio!.value
             } else {
                 return (self.gpio!.value == 0) ? 1 : 0
@@ -139,7 +139,7 @@ public class SwiftyPiDevice {
             #else
             
             lastPinValue = self.gpio!.value
-            if (type == .relay) {
+            if (self.state.type == SwiftyPiType.relay.rawValue) {
                 self.gpio!.value = newValue
             } else {
                 self.gpio!.value = (newValue == 0) ? 1 : 0
