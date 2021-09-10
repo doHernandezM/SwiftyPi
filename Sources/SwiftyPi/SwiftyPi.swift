@@ -91,9 +91,7 @@ public class SwiftyPiDevice {
             
             timer = SwiftyPiTimer(timeInterval: 1.0, loops: 5)
             timer?.handler = { [self] in
-                if self.handler != nil {
-                    self.handler!()
-                }
+                self.action()
             }
         case SwiftyPiType.relay.rawValue:
             gpio!.direction = .OUT
@@ -112,7 +110,6 @@ public class SwiftyPiDevice {
     
     public func action() {
         self.handler?()
-        print("Device Handler called")
     }
     
     private var value: Int {
