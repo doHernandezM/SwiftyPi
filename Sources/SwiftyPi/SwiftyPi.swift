@@ -37,7 +37,7 @@ public struct SwiftyPiDeviceState: Codable {
     }
 }
 
-public class SwiftyPiDevice {
+open class SwiftyPiDevice {
     var state = SwiftyPiDeviceState()
     
     var gpio: GPIO? = nil
@@ -49,7 +49,7 @@ public class SwiftyPiDevice {
     
     public var timer: SwiftyPiTimer? = nil
     
-    public var handler: CompletionHandler? = nil
+    open var handler: CompletionHandler? = nil
     
     //Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
     public init(state:SwiftyPiDeviceState, device:Int) {
@@ -108,7 +108,7 @@ public class SwiftyPiDevice {
         
     }
     
-    public func action() {
+    open func action() {
         self.handler?()
     }
     
@@ -148,7 +148,7 @@ public class SwiftyPiDevice {
     
     
     
-    public var bool: Bool {
+    open var bool: Bool {
         get {
             return (self.value == 1) ? true : false
         }
@@ -157,7 +157,7 @@ public class SwiftyPiDevice {
         }
     }
     
-    public var int: Int {
+    open var int: Int {
         get {
             return self.value
         }
@@ -166,7 +166,7 @@ public class SwiftyPiDevice {
         }
     }
     
-    public var mode: SwiftyPiMode {
+    open var mode: SwiftyPiMode {
         get {
             return bool ? .high : .off
         }
