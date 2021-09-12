@@ -54,7 +54,7 @@ open class SwiftyPiDevice {
     //Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
     public init(state:SwiftyPiDeviceState, device:Int) {
         self.state = state
-        
+        print("initDevice")
         switch self.state.deviceProtocol {
         case SwiftyPiProtocol.GPIO.rawValue:
             self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:self.state.pin)!]!
