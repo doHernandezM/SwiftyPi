@@ -11,17 +11,16 @@ import SwiftyGPIO
 ///Optional controller for SwiftyPi devices.
 ///
 ///You can access youur devices and their values directly or have the controller do it for you.
-open class SwiftyPiDeviceController {
-    public typealias SwiftyPiDevices = [String:SwiftyPiDevice]
-    private var devices:SwiftyPiDevices = [:]
-    private var timer:SwiftyPiTimer
+open class DeviceController {
+    public typealias Devices = [String:SwiftyPiDevice]
+    private var devices:Devices = [:]
+    private var timer:Timer
     private var timeInterval:TimeInterval = 0.1
     private var loops:Int = 0
-    
 
     ///Init the controller with the default time interval and loop
     public init(devices: [SwiftyPiDevice]) {
-        timer = SwiftyPiTimer(timeInterval: self.timeInterval, loops: self.loops)
+        timer = Timer(timeInterval: self.timeInterval, loops: self.loops)
         
         self.add(devices: devices)
         
@@ -32,7 +31,7 @@ open class SwiftyPiDeviceController {
     
     ///Init the controller with custom time interval and loop
     public init(timeInterval: TimeInterval, loops: Int, devices: [SwiftyPiDevice]) {
-        timer = SwiftyPiTimer(timeInterval: self.timeInterval, loops: self.loops)
+        timer = Timer(timeInterval: self.timeInterval, loops: self.loops)
         
         self.add(devices: devices)
         

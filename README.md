@@ -1,5 +1,7 @@
 # SwiftyPi
 
+## OUT OF DATE 9/15/21
+
 This package is heavily based on and would not be possible without [SwiftyGPIO](https://github.com/uraimo/SwiftyGPIO). This is not meant to be a replacement, more like an extra layer to make using Swift with rPi devices such as buttons, relays, LEDs, UART and LCDs easier. Support is currently  limited as this is a hobby. Since SwiftyPi is made to work in conjunction with [ApusRupus](https://github.com/doHernandezM/ApusRubus) I have decided against implementing a delegate. You will have to actively poll each device in a loop for state. I may change this to implement the timer better.
 
 ## Funtionality options:

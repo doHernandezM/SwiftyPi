@@ -8,24 +8,41 @@
 import Foundation
 import SwiftyGPIO
 
-///This is our basic GPIO device.
+public struct PinState: DeviceState, Codable {
+    public var name: String = ""
+    public var pin: Int = 4
+    public var value: Int = 0
+    public var previousValue: Int = 1
+    public init() {
+    }
+}
+
+//MARK:GPIO
+///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
-open class SwiftyPiGPIO:SwiftyPiDevice {
+open class Pin:SwiftyPiDevice {
+    
+    public var state:PinState = PinState()
+    
+    var gpio: GPIO? = nil
+    var pwm: PWMOutput? = nil
+    
+    ///Add a custom block here. This block will be called during each loop.
+    open var handler: CompletionHandler? = nil
     
     ///Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
-    public override init(state:SwiftyPiPinState, device:Int) {
-        super.init(state: state, device: device)
+    required public init(state:PinState, channel:Int) {
         
         self.state = state
         print("initDevice")
         
         self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:self.state.pin)!]!
-        self.setupGPIO()
+        self.setup()
         
     }
     
-    func setupGPIO() {
+    func setup() {
 #if os(OSX) || os(iOS)
         print("Apple Platform, no GPIO: setup")
         return
@@ -39,7 +56,7 @@ open class SwiftyPiGPIO:SwiftyPiDevice {
         case SwiftyPiType.button.rawValue:
             self.gpio!.direction = .IN
             self.gpio!.pull = .down
-       case SwiftyPiType.relay.rawValue:
+        case SwiftyPiType.relay.rawValue:
             self.gpio!.direction = .OUT
         case SwiftyPiType.light.rawValue:
             self.gpio!.direction = .OUT
@@ -57,10 +74,11 @@ open class SwiftyPiGPIO:SwiftyPiDevice {
     ///Fires handler.
     ///
     ///This should be called when the timer loops or when you have a custom handler. Make sure to update the main value. Calling `super.action()` will call the handler block.
-    open override func action() {
+    open func action() {
         self.state.value = self.int
         
-        super.action()
+        self.handler?()
+        
     }
     
     ///Returns the pin value as a 0 for off or 1 for on. Make sure that you get the pin value from here, rather than overridding or accessing the pin in a different function.
@@ -71,7 +89,7 @@ open class SwiftyPiGPIO:SwiftyPiDevice {
             return 0
 #else
             
-            if (self.state.type == SwiftyPiProtocol.GPIO.rawValue) {
+            if (self.state.type == DeviceProtocol.Pin.rawValue) {
                 self.state.value = self.gpio!.int
             }
             
@@ -109,7 +127,7 @@ open class SwiftyPiGPIO:SwiftyPiDevice {
     }
     
     ///Returns the pin value as a ``SwiftyPiMode``.
-    open var mode: SwiftyPiMode {
+    open var mode: DeviceMode {
         get {
             return bool ? .high : .off
         }

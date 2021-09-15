@@ -11,7 +11,10 @@ import Dispatch
 public typealias CompletionHandler = () -> Void
 public typealias CounterTuple = (maxLoops:Int?,currentLoop:Int)
 
-public class SwiftyPiTimer {
+///Simple DispatchSourceTimer based timer
+///
+///We use this mainly for debouncing buttons, but is also a general timer.
+public class Timer {
     private let timeInterval: TimeInterval
     var timer: DispatchSourceTimer?
     var counter: CounterTuple = (nil,0)
