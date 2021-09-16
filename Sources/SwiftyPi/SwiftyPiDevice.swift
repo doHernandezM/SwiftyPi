@@ -13,6 +13,7 @@ import SwiftyGPIO
 public enum DeviceProtocol: String {
     case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
 }
+
 public enum Device: String {
     case DigitalPin,AnalogPin, PWMPin
 }

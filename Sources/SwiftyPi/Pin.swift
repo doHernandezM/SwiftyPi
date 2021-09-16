@@ -17,7 +17,7 @@ public struct PinState: DeviceState, Codable {
     }
 }
 
-//MARK:GPIO
+//MARK:Pin
 ///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
