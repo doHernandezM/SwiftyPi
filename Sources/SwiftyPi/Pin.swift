@@ -22,7 +22,11 @@ public struct PinState: DeviceState, Codable {
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
 open class Pin:SwiftyPiDevice {
-    
+    ///Change rPi board type here.
+    ///
+    ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
+    public static var board: SupportedBoard = . RaspberryPi3
+
     public var state:PinState = PinState()
     
     var gpio: GPIO? = nil
@@ -33,11 +37,10 @@ open class Pin:SwiftyPiDevice {
     
     ///Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
     required public init(state:PinState, channel:Int) {
-        
         self.state = state
         print("initDevice")
         
-        self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:self.state.pin)!]!
+        self.gpio = SwiftyGPIO.GPIOs(for:Pin.board)[GPIOName.name(pin:self.state.pin)!]!
         self.setup()
         
     }
@@ -47,7 +50,6 @@ open class Pin:SwiftyPiDevice {
         print("Apple Platform, no GPIO: setup")
         return
 #else
-        
         self.gpio!.int = 0
         
         switch self.state.type {
@@ -65,10 +67,7 @@ open class Pin:SwiftyPiDevice {
         default:
             break
         }
-        
-        
 #endif
-        
     }
     
     ///Fires handler.
@@ -78,7 +77,6 @@ open class Pin:SwiftyPiDevice {
         self.state.value = self.int
         
         self.handler?()
-        
     }
     
     ///Returns the pin value as a 0 for off or 1 for on. Make sure that you get the pin value from here, rather than overridding or accessing the pin in a different function.
@@ -88,24 +86,20 @@ open class Pin:SwiftyPiDevice {
             print("Apple Platform, no GPIO: getValue")
             return 0
 #else
-            
             if (self.state.type == DeviceProtocol.Pin.rawValue) {
                 self.state.value = self.gpio!.int
             }
-            
             if self.state.value != self.state.previousValue {
                 self.delegate?.valueChanged()
             }
             return self.state.value
-            
 #endif
         }
-        set(newValue){
+        set{
 #if os(OSX) || os(iOS)
             print("Apple Platform, no GPIO: setValue")
             return
 #else
-            
             if (self.state.type == SwiftyPiType.relay.rawValue) {
                 self.gpio!.int = newValue
             } else {
@@ -118,22 +112,14 @@ open class Pin:SwiftyPiDevice {
     
     ///Returns the pin value as a bool, false for off, true for on.
     open var bool: Bool {
-        get {
-            return (self.int == 1) ? true : false
-        }
-        set(newValue){
-            self.int = newValue ? 1 : 0
-        }
+        get {return (self.int == 1) ? true : false}
+        set {self.int = newValue ? 1 : 0}
     }
     
     ///Returns the pin value as a ``SwiftyPiMode``.
     open var mode: DeviceMode {
-        get {
-            return bool ? .high : .off
-        }
-        set(newValue){
-            self.int = (newValue == .high) ? 1 : 0
-        }
+        get {return bool ? .high : .off}
+        set {self.int = (newValue == .high) ? 1 : 0}
     }
 }
 

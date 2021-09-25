@@ -41,7 +41,11 @@ protocol DeviceState {
 ///
 ///Do not use this class directly, use one of the subclasses in order to use a specific type of device (GPIO pin, ADC pin, LCD etc).
 public protocol SwiftyPiDevice {
-    
+    ///Change rPi board type here.
+    ///
+    ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
+    static var board: SupportedBoard { get set}
+
     ///All devices must have a state.
     var state:PinState { get set }
     
