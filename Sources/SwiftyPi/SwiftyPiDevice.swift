@@ -10,12 +10,13 @@ import SwiftyGPIO
 
 
 ///This mainly internal enum will allow us to keep track of what protocol to use for our device.
-public enum DeviceProtocol: String {
-    case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
+///Determine the type of ``Pin`` array to draw. GPIO = 40 Pin Pi, mcp3008 = MCP3008, pca9685 = PCA9685
+public enum DeviceProtocol: Int, CaseIterable {
+    case gpio, pwm, mcp3008, pca9685, uart, i2c, spi
 }
 
 public enum Device: String {
-    case DigitalPin,AnalogPin, PWMPin
+    case digital,analog, pwm
 }
 
 ///Enum for adjusting device activation frequency.
@@ -35,6 +36,13 @@ public let board: SupportedBoard = . RaspberryPi3
 ///While you can access the device's values directly, the state let's you store them for comparison. Every ``SwiftyPiDevice`` will have a `name` string identifier. It will be unique and will be the main way that the SP reconizes devices.
 protocol DeviceState {
     var name: String { get set }
+}
+
+///Returns the pin value as a bool, false for off, true for on.
+extension GPIOName {
+    static func name(pin:Int) -> GPIOName? {
+        return GPIOName(rawValue: "P" + String(pin))
+    }
 }
 
 ///Main base clase for ``SwiftyPiDevice``.
