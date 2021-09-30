@@ -8,16 +8,7 @@
 import Foundation
 import SwiftyGPIO
 
-#if os(iOS)
-import UIKit
-import SwiftUI
-#elseif os(watchOS)
-import WatchKit
-import SwiftUI
-#elseif os(macOS)
-import AppKit
-import SwiftUI
-#endif
+
 
 ///Returns the pin value as a bool, false for off, true for on.
 extension GPIOName {
@@ -26,15 +17,6 @@ extension GPIOName {
     }
 }
 
-public struct PinState: Codable {
-    public var name: String = ""
-    public var pin: Int = 4
-    public var value: Int = 0
-    public var previousValue: Int = 1
-    public var type = DeviceProtocol.GPIO
-    public init() {
-    }
-}
 
 ///This mainly internal enum will allow us to keep track of what protocol to use for our device.
 public enum DeviceProtocol: String, Codable {
@@ -46,38 +28,8 @@ public enum DeviceProtocol: String, Codable {
     
 }
 
-#if os(iOS) || os(watchOS) || os(macOS)
-public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
-    switch deviceProtocol {
-    case .GPIO:
-        return Color.green
-    case .PWM:
-        return Color.yellow
-    case .MC3008:
-        return Color.gray
-    case .PCA9685:
-        return Color.yellow
-    case .UART:
-        return Color.purple
-    case .I2C:
-        return Color.red
-    case .SPI:
-        return Color.blue
-    
-    case .ground:
-        return Color.gray
-    case .v5:
-        return Color.pink
-    case .v3:
-        return Color.orange
-    }
-    
-//    return .accentColor
-}
-#endif
-
-public enum Device: String, Codable {
-    case DigitalPin,AnalogPin, PWMPin
+public enum DeviceType: String, Codable {
+    case DigitalPin,AnalogPin, PWMPin, Serial, LCD
 }
 
 ///Enum for adjusting device activation frequency.
