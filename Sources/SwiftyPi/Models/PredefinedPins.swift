@@ -51,6 +51,30 @@ public var rPi40Pins: [PinState] = [
     PinState(name: "GPIO.21", deviceProtocol: DeviceProtocol.GPIO),
 ]
 
+func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
+    var pinStates: [PinState] = []
+    var pins:[Pin] = []
+    
+    switch deviceProtocol {
+    case .GPIO:
+        pinStates = rPi40Pins
+    case .MCP3008:
+        pinStates = analogPins
+    case .PCA9685:
+        pinStates = pca9685Pins
+    default:
+        break
+    }
+    
+    for pinState in pinStates {
+        pins.append(Pin(state: pinState, channel: 0))
+    }
+    return pins
+    
+}
+
+
+
 public var analogPins: [PinState] = [
     PinState(name: "vDD", deviceProtocol: DeviceProtocol.MCP3008),
     PinState(name: "A0", deviceProtocol: DeviceProtocol.MCP3008),
@@ -70,7 +94,7 @@ public var analogPins: [PinState] = [
     PinState(name: "A7", deviceProtocol: DeviceProtocol.MCP3008),
 ]
 
-public var pca9685pins: [PinState] = [
+public var pca9685Pins: [PinState] = [
     PinState(name: "PWM.00", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.01", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.02", deviceProtocol: DeviceProtocol.PCA9685),

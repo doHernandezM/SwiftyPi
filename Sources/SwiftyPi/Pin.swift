@@ -91,7 +91,7 @@ open class Pin:SwiftyPiDevice {
             } else {
                 self.gpio!.value = (newValue == 0) ? 1 : 0
             }
-//            self.delegate?.didSet(int: newValue)
+            self.delegate?.didSet(int: newValue)
 #endif
         }
     }
