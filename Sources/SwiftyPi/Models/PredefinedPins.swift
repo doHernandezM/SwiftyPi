@@ -54,22 +54,22 @@ public var rPi40Pins: [PinState] = [
 ]
 
 public var analogPins: [PinState] = [
-    PinState(name: "vDD", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A0", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "vREF", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A1", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "aGND", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A2", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "SCLK", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A3", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "MISO", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A4", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "MOSI", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A5", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "CE", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A6", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "dGND", deviceProtocol: DeviceProtocol.MC3008),
-    PinState(name: "A7", deviceProtocol: DeviceProtocol.MC3008),
+    PinState(name: "vDD", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A0", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "vREF", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A1", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "aGND", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A2", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "SCLK", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A3", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "MISO", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A4", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "MOSI", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A5", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "CE", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A6", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "dGND", deviceProtocol: DeviceProtocol.MCP3008),
+    PinState(name: "A7", deviceProtocol: DeviceProtocol.MCP3008),
 ]
 
 public var pwmPins: [PinState] = [

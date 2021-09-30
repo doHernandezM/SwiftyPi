@@ -20,7 +20,7 @@ extension GPIOName {
 
 ///This mainly internal enum will allow us to keep track of what protocol to use for our device.
 public enum DeviceProtocol: String, Codable {
-    case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
+    case GPIO, PWM, MCP3008, PCA9685, UART, I2C, SPI
     ///These are dead pins that don't do anything.
     case ground
     case v5 = "5v"

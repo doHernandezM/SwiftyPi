@@ -47,7 +47,7 @@ open class Pin:SwiftyPiDevice {
             self.gpio = SwiftyGPIO.GPIOs(for:Pin.board)[GPIOName.name(pin:self.state.pin)!]!
         case .PWM:
             break
-        case .MC3008:
+        case .MCP3008:
             break
         case .PCA9685:
             break
@@ -140,7 +140,7 @@ public struct PinState: Codable {
             self.type = .DigitalPin
         case .PWM:
             self.type = .PWMPin
-        case .MC3008:
+        case .MCP3008:
             self.type = .AnalogPin
         case .PCA9685:
             self.type = .DigitalPin
@@ -157,7 +157,7 @@ public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
         return Color.green
     case .PWM:
         return Color.yellow
-    case .MC3008:
+    case .MCP3008:
         return Color.gray
     case .PCA9685:
         return Color.yellow
