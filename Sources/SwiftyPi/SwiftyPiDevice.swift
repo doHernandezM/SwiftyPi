@@ -69,7 +69,7 @@ public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
     case .v5:
         return Color.pink
     case .v3:
-        return Color.pink.opacity(0.66)
+        return Color.orange
     }
     
 //    return .accentColor
