@@ -51,7 +51,7 @@ public var rPi40Pins: [PinState] = [
     PinState(name: "GPIO.21", deviceProtocol: DeviceProtocol.GPIO),
 ]
 
-func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
+public func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
     var pinStates: [PinState] = []
     var pins:[Pin] = []
     
