@@ -72,8 +72,8 @@ open class Pin:SwiftyPiDevice {
             print("Apple Platform, no GPIO: getValue")
             return 0
 #else
-            if (self.state.deviceProtocol == DeviceProtocol.GPIO.rawValue) {
-                self.state.value = self.gpio!.int
+            if (self.state.deviceProtocol == DeviceProtocol.GPIO) {
+                self.state.value = self.gpio!.value
             }
             if self.state.value != self.state.previousValue {
                 self.delegate?.valueChanged()
@@ -86,12 +86,12 @@ open class Pin:SwiftyPiDevice {
             print("Apple Platform, no GPIO: setValue")
             return
 #else
-            if (self.state.deviceProtocol == DeviceProtocol.GPIO.rawValue) {
-                self.gpio!.int = newValue
+            if (self.state.deviceProtocol == DeviceProtocol.GPIO) {
+                self.gpio!.value = newValue
             } else {
-                self.gpio!.int = (newValue == 0) ? 1 : 0
+                self.gpio!.value = (newValue == 0) ? 1 : 0
             }
-            self.delegate?.didSet(int: newValue)
+//            self.delegate?.didSet(int: newValue)
 #endif
         }
     }
@@ -107,8 +107,6 @@ open class Pin:SwiftyPiDevice {
         get {return bool ? .high : .off}
         set {self.int = (newValue == .high) ? 1 : 0}
     }
-    
-    
 }
 
 public struct PinState: Codable {
