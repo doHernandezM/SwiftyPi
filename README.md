@@ -4,6 +4,10 @@ This package is heavily based on and would not be possible without [SwiftyGPIO](
 
 ## See SwiftyPi.DocC / In source comments
 
+Reqs:
+* Same as SwiftyGPIO
+    * + Swift 5.3+
+
 
 ## ~~Funtionality options:
 I recommend visiting SwiftyGPIO and getting familiar with this API first. However, the goal to eventually be able to call many devices, so eventually SwiftyDevice is all you need to worry about. 
