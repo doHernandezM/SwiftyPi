@@ -8,17 +8,6 @@
 import Foundation
 import SwiftyGPIO
 
-#if os(iOS)
-import UIKit
-import SwiftUI
-#elseif os(watchOS)
-import WatchKit
-import SwiftUI
-#elseif os(macOS)
-import AppKit
-import SwiftUI
-#endif
-
 //MARK: Pin
 ///This is our basic "pin" device.
 ///
@@ -150,32 +139,3 @@ public struct PinState: Codable {
     }
 }
 
-#if os(iOS) || os(watchOS) || os(macOS)
-public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
-    switch deviceProtocol {
-    case .GPIO:
-        return Color.green
-    case .PWM:
-        return Color.yellow
-    case .MCP3008:
-        return Color.gray
-    case .PCA9685:
-        return Color.yellow
-    case .UART:
-        return Color.purple
-    case .I2C:
-        return Color.red
-    case .SPI:
-        return Color.blue
-        
-    case .ground:
-        return Color.gray
-    case .v5:
-        return Color.pink
-    case .v3:
-        return Color.orange
-    }
-    
-    //    return .accentColor
-}
-#endif
