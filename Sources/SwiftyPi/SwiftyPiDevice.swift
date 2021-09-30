@@ -8,20 +8,82 @@
 import Foundation
 import SwiftyGPIO
 
+#if os(iOS)
+import UIKit
+import SwiftUI
+#elseif os(watchOS)
+import WatchKit
+import SwiftUI
+#elseif os(macOS)
+import AppKit
+import SwiftUI
+#endif
 
-///This mainly internal enum will allow us to keep track of what protocol to use for our device.
-public enum DeviceProtocol: String {
-    case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
+///Returns the pin value as a bool, false for off, true for on.
+extension GPIOName {
+    static func name(pin:Int) -> GPIOName? {
+        return GPIOName(rawValue: "P" + String(pin))
+    }
 }
 
-public enum Device: String {
+public struct PinState: Codable {
+    public var name: String = ""
+    public var pin: Int = 4
+    public var value: Int = 0
+    public var previousValue: Int = 1
+    public var type = DeviceProtocol.GPIO
+    public init() {
+    }
+}
+
+///This mainly internal enum will allow us to keep track of what protocol to use for our device.
+public enum DeviceProtocol: String, Codable {
+    case GPIO, PWM, MC3008, PCA9685, UART, I2C, SPI
+    ///These are dead pins that don't do anything.
+    case ground
+    case v5 = "5v"
+    case v3 = "3v3"
+    
+}
+
+#if os(iOS) || os(watchOS) || os(macOS)
+public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
+    switch deviceProtocol {
+    case .GPIO:
+        return Color.green
+    case .PWM:
+        return Color.blue
+    case .MC3008:
+        return Color.red
+    case .PCA9685:
+        return Color.blue
+    case .UART:
+        return Color.purple
+    case .I2C:
+        return Color.yellow
+    case .SPI:
+        return Color.blue
+    
+    case .ground:
+        return Color.gray
+    case .v5:
+        return Color.pink
+    case .v3:
+        return Color.pink.opacity(0.66)
+    }
+    
+//    return .accentColor
+}
+#endif
+
+public enum Device: String, Codable {
     case DigitalPin,AnalogPin, PWMPin
 }
 
 ///Enum for adjusting device activation frequency.
 ///
 ///`High` is generally equal to ON. Use `low` and `medium` when the devices need to be cycled on or off.
-public enum DeviceMode: String {
+public enum DeviceMode: String, Codable {
     case off, low, medium, high
 }
 
@@ -29,13 +91,6 @@ public enum DeviceMode: String {
 ///
 ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
 public let board: SupportedBoard = . RaspberryPi3
-
-///Holds current values of the device.
-///
-///While you can access the device's values directly, the state let's you store them for comparison. Every ``SwiftyPiDevice`` will have a `name` string identifier. It will be unique and will be the main way that the SP reconizes devices.
-protocol DeviceState {
-    var name: String { get set }
-}
 
 ///Main base clase for ``SwiftyPiDevice``.
 ///

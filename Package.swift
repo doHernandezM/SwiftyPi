@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftyPi",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v11),
         .iOS(.v14)
     ],
     products: [
@@ -19,6 +19,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/uraimo/SwiftyGPIO.git", .exact("1.1.10")),
+        .package(url: "https://github.com/doHernandezM/ManualStack.git", from:"1.1.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,6 +31,6 @@ let package = Package(
             ]),
         .testTarget(
             name: "SwiftyPiTests",
-            dependencies: ["SwiftyPi"]),
+            dependencies: ["SwiftyPi","ManualStack"]),
     ]
 )
