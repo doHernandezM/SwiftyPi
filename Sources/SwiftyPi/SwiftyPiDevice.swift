@@ -56,7 +56,7 @@ public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
     case .MC3008:
         return Color.red
     case .PCA9685:
-        return Color.blue
+        return Color.yellow
     case .UART:
         return Color.purple
     case .I2C:

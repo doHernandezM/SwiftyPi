@@ -82,7 +82,7 @@ public struct PinView: View {
                     ManualStack(isVertical: isHorizontal) {PinButtonView(pin: pin)
                         if let individualPin = PinButtonView(pin: pins[pinLocation + 1]){individualPin}
                     }
-                } else if (self.state.type == DeviceProtocol.PWM) {
+                } else if (self.state.type == DeviceProtocol.PCA9685) {
                     PinButtonView(pin: pin)
                 } else {
                     EmptyView()
