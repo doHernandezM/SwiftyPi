@@ -27,7 +27,8 @@ let package = Package(
         .target(
             name: "SwiftyPi",
             dependencies: [
-                .product(name: "SwiftyGPIO", package: "SwiftyGPIO")
+                .product(name: "SwiftyGPIO", package: "SwiftyGPIO"),
+                .product(name: "ManualStack", package: "ManualStack")
             ]),
         .testTarget(
             name: "SwiftyPiTests",
