@@ -5,10 +5,8 @@
 //  Created by Dennis Hernandez on 9/30/21.
 //
 
-#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
 
 import Foundation
-import SwiftUI
 
 public var rPi40Pins: [PinState] = [
     PinState(name: "3v3.01", deviceProtocol: DeviceProtocol.v3),
@@ -72,7 +70,7 @@ public var analogPins: [PinState] = [
     PinState(name: "A7", deviceProtocol: DeviceProtocol.MCP3008),
 ]
 
-public var pwmPins: [PinState] = [
+public var pca9685pins: [PinState] = [
     PinState(name: "PWM.00", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.01", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.02", deviceProtocol: DeviceProtocol.PCA9685),
@@ -90,4 +88,4 @@ public var pwmPins: [PinState] = [
     PinState(name: "PWM.14", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.15", deviceProtocol: DeviceProtocol.PCA9685),
 ]
-#endif
+
