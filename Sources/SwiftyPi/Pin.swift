@@ -8,17 +8,6 @@
 import Foundation
 import SwiftyGPIO
 
-#if os(iOS)
-import UIKit
-import SwiftUI
-#elseif os(watchOS)
-import WatchKit
-import SwiftUI
-#elseif os(macOS)
-import AppKit
-import SwiftUI
-#endif
-
 
 //MARK: Pin
 ///This is our basic "pin" device.
@@ -120,7 +109,5 @@ open class Pin:SwiftyPiDevice {
         set {self.int = (newValue == .high) ? 1 : 0}
     }
     
-#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
-    //MARK: PinButton
-#endif
+
 }

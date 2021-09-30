@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "ManualStack",
-        "repositoryURL": "https://github.com/doHernandezM/ManualStack.git",
-        "state": {
-          "branch": null,
-          "revision": "e2edca817ef8a296bc287e0647905a6c1e481473",
-          "version": "1.1.3"
-        }
-      },
-      {
         "package": "SwiftyGPIO",
         "repositoryURL": "https://github.com/uraimo/SwiftyGPIO.git",
         "state": {
