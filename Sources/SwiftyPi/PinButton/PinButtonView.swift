@@ -10,6 +10,7 @@ import SwiftUI
 
 public struct PinButtonState: Codable {
     public var text = "8"
+    public var label = ""
     public var enabled:Bool = true
     public var active:Bool = false
     
@@ -23,7 +24,7 @@ struct PinIcon:View {
     
     var body: some View {
         ZStack {
-            if pin.state.type == DeviceProtocol.PWM {
+            if pin.state.type == DeviceProtocol.PCA9685 {
                 RoundedRectangle(cornerRadius: 9.0)
                     .frame(width:pin.squareHeight(), height: pin.squareHeight())
                     .foregroundColor(pin.state.color)
@@ -39,7 +40,7 @@ struct PinIcon:View {
                     .foregroundColor(Color.clear)
                     .clipped()
             }
-            Text(pin.state.text)
+            Text(pin.state.label)
                 .fontWeight(.medium)
                 .frame(width: pin.squareHeight(), height: pin.squareHeight())
                 .font(.system(.subheadline, design: .monospaced))
@@ -55,7 +56,7 @@ struct PinLabel: View {
     
     var body: some View {
         ZStack {
-            if pin.state.type != DeviceProtocol.PWM {
+            if pin.state.type != DeviceProtocol.PCA9685 {
                 RoundedRectangle(cornerRadius: 9.0)
                     .clipped()
                     .frame(width: pin.frame().width, height: pin.frame().height)
@@ -95,7 +96,7 @@ public struct PinButtonView: View {
                 }.clipped()
             } else {
                 HStack{
-                    if (pin.state.type == DeviceProtocol.PWM) {
+                    if (pin.state.type == DeviceProtocol.PCA9685) {
                         RoundedRectangle(cornerRadius: 9.0)
                             .clipped()
                             .frame(width:pin.squareHeight(), height: pin.squareHeight())

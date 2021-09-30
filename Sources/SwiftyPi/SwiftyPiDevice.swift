@@ -52,15 +52,15 @@ public func pinColor(deviceProtocol:DeviceProtocol) -> Color {
     case .GPIO:
         return Color.green
     case .PWM:
-        return Color.blue
+        return Color.yellow
     case .MC3008:
-        return Color.red
+        return Color.gray
     case .PCA9685:
         return Color.yellow
     case .UART:
         return Color.purple
     case .I2C:
-        return Color.yellow
+        return Color.red
     case .SPI:
         return Color.blue
     

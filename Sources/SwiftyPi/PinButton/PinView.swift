@@ -62,8 +62,8 @@ public struct PinView: View {
                 internalPins = PinButton.setPinType(type: DeviceProtocol.GPIO, pins: rPi40Pins)
             case .MC3008:
                 internalPins = PinButton.setPinType(type: DeviceProtocol.MC3008, pins: analogPins)
-            case .PWM:
-                internalPins = PinButton.setPinType(type: DeviceProtocol.PWM, pins: pwmPins)
+            case .PCA9685:
+                internalPins = PinButton.setPinType(type: DeviceProtocol.PCA9685, pins: pwmPins)
             default:
                 break
             }
@@ -78,7 +78,7 @@ public struct PinView: View {
             ForEach(pins, id:\.self){ pin in
                 let pinLocation = pins.firstIndex(of: pin) ?? 0
                 
-                if (pinLocation % 2 == 0 && self.state.type != DeviceProtocol.PWM) {
+                if (pinLocation % 2 == 0 && self.state.type != DeviceProtocol.PCA9685) {
                     ManualStack(isVertical: isHorizontal) {PinButtonView(pin: pin)
                         if let individualPin = PinButtonView(pin: pins[pinLocation + 1]){individualPin}
                     }
@@ -112,11 +112,12 @@ public struct PinView: View {
 struct PinView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PinView(state: PinViewState(type: DeviceProtocol.PWM, background: Color.clear, horizontal: false), delegate: nil)
+            PinView(state: PinViewState(type: DeviceProtocol.GPIO, background: Color.clear, horizontal: false), delegate: nil)
                 .preferredColorScheme(.light)
-            PinView(state: PinViewState(type: DeviceProtocol.MC3008, background: Color.clear, horizontal: false), delegate: nil)
+            PinView(state: PinViewState(type: DeviceProtocol.PCA9685, background: Color.clear, horizontal: false), delegate: nil)
                 .preferredColorScheme(.dark)
         }
+        .previewDevice("iPad Pro (12.9-inch) (5th generation)")
     }
 }
 
