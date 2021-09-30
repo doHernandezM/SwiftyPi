@@ -9,10 +9,9 @@
 import SwiftUI
 
 public struct PinButtonState: Codable {
-    var text = "8"
-    var enabled:Bool = true
-    var active:Bool = false
-    
+    public var text = "8"
+    public var enabled:Bool = true
+    public var active:Bool = false
     
     public var color: Color = Color.clear
     public var position: Position? = Position.left
