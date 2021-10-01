@@ -9,11 +9,6 @@ import Foundation
 import SwiftyGPIO
 
 //MARK: Pin
-///Master pins
-///
-///These are all of the pins currently active.
-public var pins:[Pin] = []
-
 ///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
@@ -112,6 +107,22 @@ open class Pin:SwiftyPiDevice {
         get {return bool ? .high : .off}
         set {self.int = (newValue == .high) ? 1 : 0}
     }
+    
+    //MARK: Pins
+    ///Master pins
+    ///
+    ///These are all of the pins currently active.
+    public static var pins:[Pin] = []
+    ///Returns the named pin, if possible.
+    public static func pin(name: String) -> Pin? {
+        for pin in pins {
+            if pin.state.name == name {
+                return pin
+            }
+        }
+        return nil
+    }
+
 }
 
 public struct PinState: Codable {
