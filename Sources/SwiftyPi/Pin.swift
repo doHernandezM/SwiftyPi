@@ -19,7 +19,7 @@ open class Pin:SwiftyPiDevice, ObservableObject {
     ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
     public static var board: SupportedBoard = . RaspberryPi3
     
-    public var state:PinState = PinState()
+    @Published public var state:PinState = PinState()
     
     var gpio: GPIO? = nil
     var pwm: PWMOutput? = nil
@@ -126,7 +126,7 @@ open class Pin:SwiftyPiDevice, ObservableObject {
 
 }
 
-public struct PinState: Codable {
+public class PinState: Codable, ObservableObject {
     public var name: String = ""
     public var pin: Int = 4
     public var value: Int = 0
