@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyGPIO
+import Combine
 
 //MARK: Pin
 ///This is our basic "pin" device.
