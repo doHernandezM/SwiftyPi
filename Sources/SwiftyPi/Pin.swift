@@ -12,7 +12,7 @@ import SwiftyGPIO
 ///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
-open class Pin:SwiftyPiDevice {
+open class Pin:SwiftyPiDevice, ObservableObject {
     ///Change rPi board type here.
     ///
     ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
