@@ -9,6 +9,11 @@ import Foundation
 import SwiftyGPIO
 
 //MARK: Pin
+///Master pins
+///
+///These are all of the pins currently active.
+public var pins:[Pin] = []
+
 ///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
