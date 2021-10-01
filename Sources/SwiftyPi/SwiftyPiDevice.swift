@@ -26,7 +26,7 @@ public enum DeviceProtocol: String, Codable {
     case v5 = "5v"
     case v3 = "3v3"
     
-    static func isDeadProtocol(deviceProtocol:DeviceProtocol) -> Bool{
+    static public func isDeadProtocol(deviceProtocol:DeviceProtocol) -> Bool{
         switch deviceProtocol {
         case .GPIO, .PWM, .MCP3008, .PCA9685, .UART, .I2C, .SPI:
             return false
