@@ -22,9 +22,19 @@ extension GPIOName {
 public enum DeviceProtocol: String, Codable {
     case GPIO, PWM, MCP3008, PCA9685, UART, I2C, SPI
     ///These are dead pins that don't do anything.
-    case ground
+    case Ground
     case v5 = "5v"
     case v3 = "3v3"
+    
+    static func isDeadProtocol(deviceProtocol:DeviceProtocol) -> Bool{
+        switch deviceProtocol {
+        case .GPIO, .PWM, .MCP3008, .PCA9685, .UART, .I2C, .SPI:
+            return false
+        default:
+            break
+        }
+        return true
+    }
     
 }
 
