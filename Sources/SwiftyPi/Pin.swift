@@ -120,9 +120,20 @@ open class Pin:SwiftyPiDevice, ObservableObject {
                 return pin
             }
         }
+        
+        let pin:[String] = name.components(separatedBy: ".")
+        
+        if let pinProtocol = DeviceProtocol(rawValue: pin[1]) {
+            
+            let pinState = PinState(name: name, deviceProtocol: pinProtocol )
+            
+            let newPin = Pin(state: pinState, channel: 0)
+            
+            return newPin
+        }
         return nil
     }
-
+    
 }
 
 public class PinState: ObservableObject {
@@ -139,6 +150,7 @@ public class PinState: ObservableObject {
     public init(name: String, deviceProtocol:DeviceProtocol) {
         self.name = name
         self.deviceProtocol = deviceProtocol
+        
         switch deviceProtocol {
         case .GPIO:
             self.type = .DigitalPin
