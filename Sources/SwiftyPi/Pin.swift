@@ -30,7 +30,6 @@ open class Pin:SwiftyPiDevice, ObservableObject {
     ///Create a default state then define a device. For PWM/UART/I2C device represents the channel number.
     required public init(state:PinState, channel:Int) {
         self.state = state
-        print("initDevice")
         
         switch state.deviceProtocol {
         case .GPIO:
@@ -126,13 +125,14 @@ open class Pin:SwiftyPiDevice, ObservableObject {
 
 }
 
-public class PinState: Codable, ObservableObject {
-    public var name: String = ""
-    public var pin: Int = 4
-    public var value: Int = 0
-    public var previousValue: Int = 1
-    public var deviceProtocol = DeviceProtocol.GPIO
-    public var type = DeviceType.DigitalPin
+public class PinState: ObservableObject {
+    @Published public var name: String = ""
+    @Published public var pin: Int = 4
+    @Published public var value: Int = 0
+    @Published public var previousValue: Int = 1
+    @Published public var deviceProtocol = DeviceProtocol.GPIO
+    @Published public var type = DeviceType.DigitalPin
+    
     public init() {
     }
     
