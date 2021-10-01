@@ -160,7 +160,7 @@ public class PinState: ObservableObject {
             self.type = .AnalogPin
         case .PCA9685:
             self.type = .DigitalPin
-        case .UART, .I2C, .SPI, .ground, .v5, .v3:
+        case .UART, .I2C, .SPI, .Ground, .v5, .v3:
             break
         }
     }
