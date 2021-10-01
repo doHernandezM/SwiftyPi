@@ -46,7 +46,7 @@ open class Pin:SwiftyPiDevice, ObservableObject {
             break
         case .SPI:
             break
-        case .ground:
+        case .Ground:
             break
         case .v5:
             break
