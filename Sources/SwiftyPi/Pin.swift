@@ -122,7 +122,7 @@ open class Pin:SwiftyPiDevice, ObservableObject {
         }
         
         let pin:[String] = name.components(separatedBy: ".")
-        
+        print(pin)
         if let pinProtocol = DeviceProtocol(rawValue: pin[1]) {
             
             let pinState = PinState(name: name, deviceProtocol: pinProtocol )
