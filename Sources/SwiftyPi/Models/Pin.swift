@@ -108,36 +108,11 @@ open class Pin:SwiftyPiDevice, ObservableObject {
         set {self.int = (newValue == .high) ? 1 : 0}
     }
     
-    //MARK: Pins
-    ///Master pins
-    ///
-    ///These are all of the pins currently active.
-    public static var pins:[Pin] = []
-    ///Returns the named pin, if possible.
-    public static func pin(name: String) -> Pin? {
-        for pin in pins {
-            if pin.state.name == name {
-                return pin
-            }
-        }
-        
-        let pin:[String] = name.components(separatedBy: ".")
-        print(pin)
-        if let pinProtocol = DeviceProtocol(rawValue: pin[0]) {
-            
-            let pinState = PinState(name: name, deviceProtocol: pinProtocol )
-            
-            let newPin = Pin(state: pinState, channel: 0)
-            
-            return newPin
-        }
-        return nil
-    }
-    
 }
 
 public class PinState: ObservableObject {
     @Published public var name: String = ""
+    @Published public var customName: String = ""
     @Published public var pin: Int = 4
     @Published public var value: Int = 0
     @Published public var previousValue: Int = 1
