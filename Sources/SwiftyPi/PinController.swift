@@ -14,9 +14,9 @@ public class PinController {
 ///Master pins
 ///
 ///These are all of the pins currently active.
-public var pins:[Int:Pin] = [:]
+public static var pins:[Int:Pin] = [:]
 ///Returns the named pin, if possible.
-public func pin(name: String) -> Pin? {
+public static func pin(name: String) -> Pin? {
     for pin in pins {
         if pin.value.state.name == name {
             print("returnPin:\(pin.value.state.name)")
