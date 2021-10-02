@@ -9,7 +9,7 @@ import Foundation
 import SwiftyGPIO
 
 //MARK: Pins
-class PinController {
+public class PinController {
     
 ///Master pins
 ///
