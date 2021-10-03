@@ -13,7 +13,16 @@ import Combine
 ///This is our basic "pin" device.
 ///
 ///The best way to use this is to get the ``int``/``bool``/``mode``.
-open class Pin:SwiftyPiDevice, ObservableObject {
+open class Pin:SwiftyPiDevice, ObservableObject, Hashable {
+    
+    
+    public static func == (lhs: Pin, rhs: Pin) -> Bool {
+        return lhs.state.name == rhs.state.name
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(state.name)
+    }
     ///Change rPi board type here.
     ///
     ///Currently supports all boards from SwiftyGPIO. Obvi, this is ignored in macOS.
