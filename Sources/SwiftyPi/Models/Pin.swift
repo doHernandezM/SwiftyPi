@@ -102,12 +102,11 @@ open class Pin:SwiftyPiDevice, ObservableObject {
         set {self.int = newValue ? 1 : 0}
     }
     
-    ///Returns the pin value as a ``SwiftyPiMode``.
+    ///Returns the pin value as a ``DeviceMode``.
     open var mode: DeviceMode {
         get {return bool ? .high : .off}
         set {self.int = (newValue == .high) ? 1 : 0}
     }
-    
 }
 
 public class PinState: ObservableObject {

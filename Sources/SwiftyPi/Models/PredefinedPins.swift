@@ -8,7 +8,7 @@
 
 import Foundation
 
-public var rPi40Pins: [PinState] = [
+public var defaultRPi40States: [PinState] = [
     PinState(name: "3v3.01", deviceProtocol: DeviceProtocol.v3),
     PinState(name: "5v.01", deviceProtocol: DeviceProtocol.v5),
     PinState(name: "GPIO.02", deviceProtocol: DeviceProtocol.GPIO),
@@ -51,31 +51,7 @@ public var rPi40Pins: [PinState] = [
     PinState(name: "GPIO.21", deviceProtocol: DeviceProtocol.GPIO),
 ]
 
-public func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
-    var pinStates: [PinState] = []
-    var pins:[Pin] = []
-    
-    switch deviceProtocol {
-    case .GPIO:
-        pinStates = rPi40Pins
-    case .MCP3008:
-        pinStates = analogPins
-    case .PCA9685:
-        pinStates = pca9685Pins
-    default:
-        break
-    }
-    
-    for pinState in pinStates {
-        pins.append(Pin(state: pinState, channel: 0))
-    }
-    return pins
-    
-}
-
-
-
-public var analogPins: [PinState] = [
+public var defaultAnalogStates: [PinState] = [
     PinState(name: "vDD", deviceProtocol: DeviceProtocol.MCP3008),
     PinState(name: "A0", deviceProtocol: DeviceProtocol.MCP3008),
     PinState(name: "vREF", deviceProtocol: DeviceProtocol.MCP3008),
@@ -94,7 +70,7 @@ public var analogPins: [PinState] = [
     PinState(name: "A7", deviceProtocol: DeviceProtocol.MCP3008),
 ]
 
-public var pca9685Pins: [PinState] = [
+public var defaultPCA9685State: [PinState] = [
     PinState(name: "PWM.00", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.01", deviceProtocol: DeviceProtocol.PCA9685),
     PinState(name: "PWM.02", deviceProtocol: DeviceProtocol.PCA9685),
