@@ -10,6 +10,10 @@ import Foundation
 
 open class Rules {
     public static var rules:[Rule] = []
+    
+    public init() {
+        
+    }
 }
 
 open class Rule: ObservableObject {
