@@ -30,6 +30,8 @@ open class Pin:SwiftyPiDevice, ObservableObject, Hashable {
     
     @Published public var state:PinState = PinState()
     
+    ///Set when the value of int changes. Very fleeting.
+    var toggled:Bool = false
     var gpio: GPIO? = nil
     var pwm: PWMOutput? = nil
     

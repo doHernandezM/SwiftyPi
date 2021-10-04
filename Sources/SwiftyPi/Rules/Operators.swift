@@ -29,44 +29,44 @@ public enum Operators: String, CaseIterable, Codable {
     
     ///MultiplicationPrecedence
     ///Left associative
-    case multOp = "*"
-    case divOp = "/"
-    case remainderOp = "%"
+    case mult = "*"
+    case div = "/"
+    case remainder = "%"
     
     ///AdditionPrecedence
     ///Left associative
-    case addOp = "+"
-    case subSignOp = "-" //Supports both subraction and number signing
+    case add = "+"
+    case subSign = "-" //Supports both subraction and number signing
     
     ///NilCoalescingPrecedence
     ///Right associative
-    case nilCoalescingOp = "??"
+    case nilCoalescing = "??"
     
     ///ComparisonPrecedence
     ///None
-    case lessop = "<"
-    case lessEqualop = "<="
-    case greaterOp = ">"
-    case greaterEqualOp = ">="
-    case equalsOp = "=="
-    case notOp = "!="
+    case less = "<"
+    case lessEquals = "<="
+    case greater = ">"
+    case greaterEquals = ">="
+    case equals = "=="
+    case not = "!="
     
     ///LogicalConjunctionPrecedence
     ///Left associative
-    case andOp = "&&"
-    case orOp = "||"
+    case and = "&&"
+    case or = "||"
     
     ///AssignmentPrecedence
     ///Right associative
-    case assignOp = "="
-    case multAssignOp = "*="
-    case divAssignOp = "/="
-    case remainderAssignOp = "%="
-    case additionAssignOp = "+="
-    case subAssignOp = "-="
+    case assign = "="
+    case multAssign = "*="
+    case divAssign = "/="
+    case remainderAssign = "%="
+    case additionAssign = "+="
+    case subAssign = "-="
     func isAssignOperator() -> Bool {
         switch self {
-        case .assignOp, .multAssignOp, .divAssignOp, .remainderOp, .additionAssignOp, .subAssignOp:
+        case .assign, .multAssign, .divAssign, .remainder, .additionAssign, .subAssign:
             return true
         default:
             return false
