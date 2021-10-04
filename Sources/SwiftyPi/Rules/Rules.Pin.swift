@@ -19,6 +19,7 @@ public class PinRuleConditional: RuleConditional {
     public init(object: Pin?, state:PinRuleState?) {
         self.object = object
         self.state = state
+        
     }
     
     public func solve() -> Bool{

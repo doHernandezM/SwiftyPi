@@ -36,6 +36,16 @@ open class Rule: ObservableObject, Hashable, Equatable {
         self.outputCondition = outputCondition
     }
     
+    public func conditionals(returnInput: Bool) -> [PinRuleConditional]{
+        if returnInput {
+            if self.inputCondition == nil {return []}
+            return self.inputCondition as! [PinRuleConditional]
+        } else {
+            if self.outputCondition == nil {return []}
+            return self.outputCondition as! [PinRuleConditional]
+        }
+    }
+    
 }
 
 public protocol RuleConditional {
