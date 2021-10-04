@@ -6,14 +6,15 @@
 //
 
 import Foundation
+//import Combine
 
 open class Rules {
     public static var rules:[Rule] = []
 }
 
-open class Rule {
-    public var inputCondition: [RuleConditional]? = nil
-    public var outputCondition: [RuleConditional]? = nil
+open class Rule: ObservableObject {
+    @Published public var inputCondition: [RuleConditional]? = nil
+    @Published public var outputCondition: [RuleConditional]? = nil
 }
 
 public protocol RuleConditional {
