@@ -30,6 +30,12 @@ open class Rule: ObservableObject, Hashable, Equatable {
     
     public init() {
     }
+    
+    public init(inputCondition: [RuleConditional]?, outputCondition: [RuleConditional]?) {
+        self.inputCondition = inputCondition
+        self.outputCondition = outputCondition
+    }
+    
 }
 
 public protocol RuleConditional {
