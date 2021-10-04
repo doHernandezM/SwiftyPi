@@ -28,6 +28,9 @@ open class Rule: ObservableObject, Hashable, Equatable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.id)
     }
+    
+    public init() {
+    }
 }
 
 public protocol RuleConditional {
