@@ -16,7 +16,7 @@ public class PinRuleConditional: RuleConditional {
     public var object: SwiftyPiDevice? = nil
     public var state: PinRuleState? = nil
     
-    init(object: Pin, state:PinRuleState?) {
+    public init(object: Pin, state:PinRuleState?) {
         self.object = object
         self.state = state
     }

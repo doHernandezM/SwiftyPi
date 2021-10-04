@@ -12,7 +12,6 @@ open class RuleController {
     public static var rules:[Rule] = []
     
     public init() {
-        
     }
 }
 
