@@ -12,9 +12,10 @@ public class PinRuleState: RuleState {
     public var value:Int = -1
 }
 
-public class PinRuleConditional: RuleConditional {
+public class PinRuleConditional: RuleConditional, Identifiable {
     public var object: SwiftyPiDevice? = nil
     public var state: PinRuleState? = nil
+    public var id: UUID = UUID()
     
     public init(object: Pin?, state:PinRuleState?) {
         self.object = object
