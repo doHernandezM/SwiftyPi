@@ -17,6 +17,7 @@ open class RuleController {
 
 open class Rule: ObservableObject, Hashable, Equatable {
     @Published public var id: UUID = UUID()
+    @Published public var name: String = ""
     @Published public var inputCondition: [RuleConditional]? = nil
     @Published public var outputCondition: [RuleConditional]? = nil
     
@@ -29,11 +30,13 @@ open class Rule: ObservableObject, Hashable, Equatable {
     }
     
     public init() {
+        self.name = id.uuidString
     }
     
     public init(inputCondition: [RuleConditional]?, outputCondition: [RuleConditional]?) {
         self.inputCondition = inputCondition
         self.outputCondition = outputCondition
+        self.name = id.uuidString
     }
     
     public func conditionals(returnInput: Bool) -> [PinRuleConditional]{
