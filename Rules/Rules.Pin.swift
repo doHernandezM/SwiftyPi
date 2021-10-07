@@ -12,7 +12,7 @@ public class PinRuleState: RuleState {
     public var value:Int = -1
 }
 
-public class PinRuleConditional: RuleConditional, Identifiable {
+public class PinRuleConditional: RuleConditional, Identifiable, Codable {
     public var object: SwiftyPiDevice? = nil
     public var state: PinRuleState? = nil
     public var id: UUID = UUID()
@@ -21,6 +21,12 @@ public class PinRuleConditional: RuleConditional, Identifiable {
         self.object = object
         self.state = state
         
+    }
+    
+    public enum CodingKeys:String, CodingKey {
+        case id
+        case state
+        case id
     }
     
     public func solve() -> Bool{
