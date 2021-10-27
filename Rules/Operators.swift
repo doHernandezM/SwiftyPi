@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Dennis Hernandez on 10/3/21.
 //
@@ -11,7 +11,13 @@ import Foundation
 ///Used for pin state
 ///
 ///Stolen from https://github.com/doHernandezM/Schwifty.git
-public enum Operators: String, CaseIterable, Codable {
+enum Operators: String, CaseIterable, Codable, Equatable, Identifiable {
+    static func == (lhs: Operators, rhs: Operators) -> Bool {
+        lhs.rawValue == rhs.rawValue
+    }
+    
+    var id: UUID { get{return UUID()} }
+    
     case letOp = "let"
     case varOp = "var"
     func isCreateVariable() -> Bool {
@@ -23,6 +29,9 @@ public enum Operators: String, CaseIterable, Codable {
         }
     }
     
+    ///Returns the string value.
+    ///
+    ///You could also use .rawValue, but don't assume `Operators` will always be strings.
     func string() -> String {
         return self.rawValue
     }
@@ -50,6 +59,19 @@ public enum Operators: String, CaseIterable, Codable {
     case greaterEquals = ">="
     case equals = "=="
     case not = "!="
+    func isComparisonOperator() -> Bool {
+        if Operators.comparison.contains(self) {
+            return true
+        }
+        return false
+    }
+    
+    ///Retuns all comparision precedence operators
+    static var comparison:[Operators] {
+        get{
+            return[.less, .lessEquals, .greater, .greaterEquals, .equals, .not]
+        }
+    }
     
     ///LogicalConjunctionPrecedence
     ///Left associative
