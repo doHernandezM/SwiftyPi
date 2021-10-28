@@ -14,14 +14,14 @@ public class PinController {
     ///Master pins
     ///
     ///These are all of the pi pins currently active.
-    public static var piPins:[Int:Pin] = [:]
+    public static var piPins:[Int:PhysicalPin] = [:]
     ///These are all of the pi pins currently active.
-    public static var analogPins:[Int:Pin] = [:]
+    public static var analogPins:[Int:PhysicalPin] = [:]
     ///These are all of the pi pins currently active.
-    public static var pca9685Pins:[Int:Pin] = [:]
+    public static var pca9685Pins:[Int:PhysicalPin] = [:]
     
     ///Returns the named pin, if possible.
-    public static func pin(name: String) -> Pin? {
+    public static func pin(name: String) -> PhysicalPin? {
         for pin in piPins {
             if pin.value.state.name == name {
                 return pin.value
@@ -40,9 +40,9 @@ public class PinController {
         return nil
     }
     
-    public static func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
+    public static func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [PhysicalPin] {
         var pinStates: [PinState] = []
-        var pins:[Pin] = []
+        var pins:[PhysicalPin] = []
         
         switch deviceProtocol {
         case .GPIO:
@@ -56,7 +56,7 @@ public class PinController {
         }
         
         for pinState in pinStates {
-            pins.append(Pin(state: pinState, channel: 0))
+            pins.append(PhysicalPin(state: pinState, channel: 0))
         }
         return pins
         
@@ -66,13 +66,13 @@ public class PinController {
     public static func loadPins() {
         
         for (i,pinState) in defaultRPi40States.enumerated() {
-            piPins[i] = Pin(state: pinState, channel: 0)
+            piPins[i] = PhysicalPin(state: pinState, channel: 0)
         }
         for (i,pinState) in defaultAnalogStates.enumerated() {
-            analogPins[i] = Pin(state: pinState, channel: 0)
+            analogPins[i] = PhysicalPin(state: pinState, channel: 0)
         }
         for (i,pinState) in defaultPCA9685State.enumerated() {
-            pca9685Pins[i] = Pin(state: pinState, channel: 0)
+            pca9685Pins[i] = PhysicalPin(state: pinState, channel: 0)
         }
     }
     

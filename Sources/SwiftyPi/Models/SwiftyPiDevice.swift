@@ -70,7 +70,7 @@ public protocol SwiftyPiDevice {
     var handler: CompletionHandler? { get set }
     
     ///Create a default state then define a device. For PWM/UART/I2C channel represents the channel number.
-    init(state:PinState, channel:Int)
+    //init(state:PinState, channel:Int)
     
     ///This is a stub for compatability.
     func action()
