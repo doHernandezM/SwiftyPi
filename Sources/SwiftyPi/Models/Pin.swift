@@ -1,7 +1,7 @@
 //
 //  Utilities.swift.swift
 //  PiMaker
-// 
+//
 //  Created by Dennis Hernandez on 10/10/21.
 //
 
@@ -191,7 +191,9 @@ public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
     func setupType() {
         switch self.currentProtocol {
         case .GPIO:
-            self.gpio = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:Int(self.name) ?? 01)!]!
+            if let newGPIO = SwiftyGPIO.GPIOs(for:board)[GPIOName.name(pin:Int(self.name) ?? 01)!] {
+                self.gpio = newGPIO
+            }
         default:
             break
         }
