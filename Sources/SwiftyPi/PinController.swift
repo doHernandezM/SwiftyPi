@@ -22,59 +22,59 @@ public class PinController {
     
     ///Returns the named pin, if possible.
     public static func pin(name: String) -> Pin? {
-        for pin in piPins {
-            if pin.value.state.name == name {
-                return pin.value
+        for (_, pin) in piPins {
+            if pin.name == name {
+                return pin
             }
         }
-        for pin in analogPins {
-            if pin.value.state.name == name {
-                return pin.value
+        for (_, pin) in analogPins {
+            if pin.name == name {
+                return pin
             }
         }
-        for pin in pca9685Pins {
-            if pin.value.state.name == name {
-                return pin.value
+        for (_, pin) in pca9685Pins {
+            if pin.name == name {
+                return pin
             }
         }
         return nil
     }
     
-    public static func pinsForProtocol(deviceProtocol: DeviceProtocol) -> [Pin] {
-        var pinStates: [PinState] = []
-        var pins:[Pin] = []
-        
-        switch deviceProtocol {
-        case .GPIO:
-            pinStates = defaultRPi40States
-        case .MCP3008:
-            pinStates = defaultAnalogStates
-        case .PCA9685:
-            pinStates = defaultPCA9685State
-        default:
-            break
-        }
-        
-        for pinState in pinStates {
-            pins.append(Pin(state: pinState, channel: 0))
-        }
-        return pins
-        
-    }
-    
-    ///
-    public static func loadPins() {
-        
-        for (i,pinState) in defaultRPi40States.enumerated() {
-            piPins[i] = Pin(state: pinState, channel: 0)
-        }
-        for (i,pinState) in defaultAnalogStates.enumerated() {
-            analogPins[i] = Pin(state: pinState, channel: 0)
-        }
-        for (i,pinState) in defaultPCA9685State.enumerated() {
-            pca9685Pins[i] = Pin(state: pinState, channel: 0)
-        }
-    }
+//    public static func pinsForProtocol(deviceProtocol: PinType) -> [Pin] {
+//        var pinStates: [PinState] = []
+//        var pins:[Pin] = []
+//        
+//        switch deviceProtocol {
+//        case .GPIO:
+//            pinStates = defaultRPi40States
+//        case .MCP3008:
+//            pinStates = defaultAnalogStates
+//        case .PCA9685:
+//            pinStates = defaultPCA9685State
+//        default:
+//            break
+//        }
+//        
+//        for pinState in pinStates {
+//            pins.append(Pin(state: pinState, channel: 0))
+//        }
+//        return pins
+//        
+//    }
+//    
+//    ///
+//    public static func loadPins() {
+//        
+//        for (i,pinState) in defaultRPi40States.enumerated() {
+//            piPins[i] = Pin(state: pinState, channel: 0)
+//        }
+//        for (i,pinState) in defaultAnalogStates.enumerated() {
+//            analogPins[i] = Pin(state: pinState, channel: 0)
+//        }
+//        for (i,pinState) in defaultPCA9685State.enumerated() {
+//            pca9685Pins[i] = Pin(state: pinState, channel: 0)
+//        }
+//    }
     
     //    {
     //
