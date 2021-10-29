@@ -80,7 +80,7 @@ public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
     }
     ///All of a pins available modes.
     @Published public var pinProtocols: [PinType] = [.Ground] {
-        willSet {
+        didSet {
             if pinProtocols.count > 0 {
                 currentProtocol = pinProtocols.last ?? .Ground
             } else {
