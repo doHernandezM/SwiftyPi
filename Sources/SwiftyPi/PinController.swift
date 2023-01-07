@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyGPIO
 
 //MARK: Pins
 public class PinController {
