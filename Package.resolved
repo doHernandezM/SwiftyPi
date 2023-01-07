@@ -9,24 +9,6 @@
           "revision": "93267a0149dad158d3b615be5db5cd54f20c8ad9",
           "version": null
         }
-      },
-      {
-        "package": "SwiftyGPIO",
-        "repositoryURL": "https://github.com/uraimo/SwiftyGPIO.git",
-        "state": {
-          "branch": null,
-          "revision": "f7dbe1c706793e98cf99054d54109ae45e0d1f5a",
-          "version": "1.1.10"
-        }
-      },
-      {
-        "package": "SwiftyLCD",
-        "repositoryURL": "https://github.com/doHernandezM/SwiftyLCD.git",
-        "state": {
-          "branch": "main",
-          "revision": "43ec70c800e8573f71297599959b362a6bcbc4f0",
-          "version": null
-        }
       }
     ]
   },

@@ -15,7 +15,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
 //        .package(url: "https://github.com/uraimo/SwiftyGPIO.git", .exact("1.1.10")),
-        .package(url: "https://github.com/doHernandezM/SwiftyLCD.git", .branch("main")),
+//        .package(url: "https://github.com/doHernandezM/SwiftyLCD.git", .branch("main")),
         .package(url: "https://github.com/doHernandezM/Schwifty.git", .branch("main"))
     ],
     targets: [
@@ -25,7 +25,7 @@ let package = Package(
             name: "SwiftyPi",
             dependencies: [
 //                .product(name: "SwiftyGPIO", package: "SwiftyGPIO"),
-                .product(name: "SwiftyLCD", package: "SwiftyLCD"),
+//                .product(name: "SwiftyLCD", package: "SwiftyLCD"),
                 .product(name: "Schwifty", package: "Schwifty"),
             ]),
         .testTarget(
