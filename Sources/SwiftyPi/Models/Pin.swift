@@ -42,7 +42,7 @@ public enum PinType: String, Codable {
 }
 
 public enum PinBarMode:Int, CaseIterable {
-    case All, GPIO, PWM, PCA9685, MCP3008
+    case All, GPIO, PWM, PCA9685, MCP3008, LCD
 }
 
 public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
@@ -379,6 +379,11 @@ func boardPins(pinProtocols:PinBarMode) -> [Pin] {
                 thePins.append(pin)
             }
         case .MCP3008:
+            if pin.pinProtocols.contains(.MCP3008) {
+                pin.currentProtocol = .MCP3008
+                thePins.append(pin)
+            }
+        case .LCD:
             if pin.pinProtocols.contains(.MCP3008) {
                 pin.currentProtocol = .MCP3008
                 thePins.append(pin)

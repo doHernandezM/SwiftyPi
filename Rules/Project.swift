@@ -20,10 +20,11 @@ struct Project: Identifiable, Codable {
     var pipassword: String = ""
     var usePCA9685: Bool = false
     var useMCP3008: Bool = false
+    var useLCD: Bool = false
     
     var useAPI: Bool = false
-    var apiPassword: String = ""
-    var apiPort: String = "83002"
+//    var apiPassword: String = ""
+//    var apiPort: String = "83002"
 
     init(rules: [Rule]) {
         self.rules = rules
