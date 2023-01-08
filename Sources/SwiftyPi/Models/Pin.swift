@@ -44,7 +44,7 @@ public enum PinBarMode:Int, CaseIterable {
     case All, GPIO, PWM, PCA9685, MCP3008, LCD
 }
 
-public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
+public class Pin:Codable, Hashable, Identifiable, Equatable {
     
     ///Get the pin name or number.
     ///
@@ -72,13 +72,13 @@ public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
     /// Returns the currently used protocol for this pin.
     ///
     /// This will determine what color to use for the pin button and which conditionals/values are valid. .Ground is default if not explicitly set while the last pin in `pinProtocol` is default.
-    @Published public var currentProtocol: PinType = .Ground {
+    public var currentProtocol: PinType = .Ground {
         didSet {
             self.setupType()
         }
     }
     ///All of a pins available modes.
-    @Published public var pinProtocols: [PinType] = [.Ground] {
+    public var pinProtocols: [PinType] = [.Ground] {
         didSet {
             if pinProtocols.count > 0 {
                 currentProtocol = pinProtocols.last ?? .Ground
@@ -89,7 +89,7 @@ public class Pin:Codable, Hashable, Identifiable, Equatable, ObservableObject {
     }
     
     ///Some pins have multiple channels. 0 is default, otherwise 1.
-    @Published public var channel = 0
+    public var channel = 0
     
     ///Set when the value of int changes. Very fleeting.
     public var toggled:Bool = false
