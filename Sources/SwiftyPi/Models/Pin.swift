@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftyGPIO
 
 ///Returns the pin value as a bool, false for off, true for on.
 extension GPIOName {
