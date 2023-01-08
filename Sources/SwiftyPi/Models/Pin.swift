@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+//import Combine
 
 ///Returns the pin value as a bool, false for off, true for on.
 extension GPIOName {
